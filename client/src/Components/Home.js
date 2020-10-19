@@ -193,7 +193,7 @@ export default function Home() {
             ref={mapRef}
             // onViewportChange={nextViewport => setViewport(nextViewport)}
             mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_TOKEN}
-            mapStyle="mapbox://styles/jarryl/ckgahkg9w4i6819qo6ziaigb8/draft"
+            mapStyle="mapbox://styles/jarryl/ckggo2kqv3e7z1aok773nnr9i"
             onViewportChange={handleViewportChange}
             onDblClick={showAddLocation}
             getCursor={(e) => "crosshair"}
