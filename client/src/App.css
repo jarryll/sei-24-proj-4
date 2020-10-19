@@ -1,0 +1,98 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#map-pin,
+#entry-pin {
+  width: 24px;
+  height: 24px;
+  transform: translate(-50%, -100%);
+}
+
+.Popup {
+  max-width: 300px;
+  padding: 0.5rem;
+}
+
+.Popup img {
+  max-width: 300px;
+}
+
+.add-location-form {
+  width: 300px;
+}
+.add-location-form label {
+  display: block;
+}
+
+.add-location-form textarea,
+input,
+select {
+  width: 100%;
+}
+
+.add-location-form div {
+  margin: 0.5rem;
+}
+
+.required-field {
+  color: red;
+}
+
+#logout-btn {
+  margin: 0.5rem;
+}
+
+.overlay {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#spinner {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+}

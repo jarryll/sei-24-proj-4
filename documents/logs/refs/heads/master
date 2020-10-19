@@ -1,0 +1,5 @@
+0000000000000000000000000000000000000000 36c0b1c94bf94ab0e13ed54f7c1111c01f1e4b71 jarryl <jarryl.chia@gmail.com> 1602559373 +0800	commit (initial): Sign up page done.
+36c0b1c94bf94ab0e13ed54f7c1111c01f1e4b71 e6c94770bf2562a5ebb53a3ac1059ba05d68ec37 jarryl <jarryl.chia@gmail.com> 1602603261 +0800	commit: Implemented Login, JWT, Protected Routes and basic api call to Amadeus
+e6c94770bf2562a5ebb53a3ac1059ba05d68ec37 b44aba2a47f80c3f00167e45a888c69ea98047ae jarryl <jarryl.chia@gmail.com> 1602659238 +0800	commit: Display Map and implemented Geocoder
+b44aba2a47f80c3f00167e45a888c69ea98047ae bc3a44a1170b81aeb0ba978152a6abacdc2d0ec8 jarryl <jarryl.chia@gmail.com> 1602952510 +0800	commit: Implemented ability to add places you have visited
+bc3a44a1170b81aeb0ba978152a6abacdc2d0ec8 58cf8f343478cf086e4a83f088661a97dbb1bdc3 jarryl <jarryl.chia@gmail.com> 1603029112 +0800	commit: Implemented ability to upload images to cloudinary
