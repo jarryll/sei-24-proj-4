@@ -192,7 +192,7 @@ export default function Home() {
             {...viewport}
             ref={mapRef}
             // onViewportChange={nextViewport => setViewport(nextViewport)}
-            mapboxApiAccessToken = "pk.eyJ1IjoiamFycnlsIiwiYSI6ImNrZzh1ZWZ4NTAwbnAzMW1zaDd0Y2xhZnIifQ.yWjUN_ba3RGie-yCg5uCxA"
+            mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_TOKEN}
             mapStyle="mapbox://styles/jarryl/ckggo2kqv3e7z1aok773nnr9i"
             onViewportChange={handleViewportChange}
             onDblClick={showAddLocation}
@@ -204,7 +204,7 @@ export default function Home() {
                 <Geocoder
                 mapRef={mapRef}
                 onViewportChange={handleGeocoderViewportChange}
-                mapboxApiAccessToken="pk.eyJ1IjoiamFycnlsIiwiYSI6ImNrZzh1ZWZ4NTAwbnAzMW1zaDd0Y2xhZnIifQ.yWjUN_ba3RGie-yCg5uCxA"
+                mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
                 position="top-left"
                 />
 
