@@ -13,7 +13,6 @@ export default function Home() {
     const [showPopup, setShowPopup] = useState(null)
     const [addLocation, setAddLocation] = useState(null)
     const [addLocationError, setAddLocationError] = useState(false)
-    const [successfullyAdded, setSuccessfullyAdded] = useState(false)
     const [placesOfInterest, setPlaces] = useState([])
     const [imgPreview, setImgPreview] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
@@ -55,10 +54,6 @@ export default function Home() {
         });
       }, []);
 
-      useEffect(()=>{
-          fetchLogs();
-          setIsLoading(false)
-      }, [successfullyAdded])
 
     // const fetchPoints = async () => {
     //     console.log("this triggered")
@@ -142,13 +137,16 @@ export default function Home() {
             body: JSON.stringify(data)
         })
         const result = await response.json()
+        console.log(result)
         setAddLocation(null)
         setIsLoading(false)
         setAddLocationError(false)
-        setSuccessfullyAdded(true)
         setImgPreview(null)
+        setPlaces([...placesOfInterest, result])
+        setViewport({... viewport, 
+            latitude: result.latitude, 
+            longitude: result.longitude})
     }
-
     const uploadImg = async (base64Img) => {
         try {
             const response = await fetch('api/upload', {
@@ -185,6 +183,27 @@ export default function Home() {
         }
     }
 
+    const handleDelete = async (e) => {
+        console.log("Delete button clicked")
+        e.preventDefault();
+        setIsLoading(true)
+        try {
+            const response = await fetch('api/log', {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ id: showPopup._id })
+            })
+            const result = await response.json()
+            setIsLoading(false)
+            setPlaces(placesOfInterest.filter(place => place._id !== showPopup._id))
+            setShowPopup(null)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
     return (
         <div>
       
@@ -214,12 +233,13 @@ export default function Home() {
                             <Marker latitude={place.latitude} longitude={place.longitude}>
                             <img id="map-pin" src="/map-pin.png" alt="map-pin" onClick={()=> setShowPopup(place)}/>
                             </Marker>
-                            {showPopup ? <Popup className="Popup" onClose={()=>setShowPopup(null)} latitude={showPopup.latitude} longitude={showPopup.longitude} anchor="left" dynamicPosition={true}>
+                            {showPopup ? <Popup className="Popup" onClose={()=>setShowPopup(null)} latitude={showPopup.latitude} longitude={showPopup.longitude} anchor="left" dynamicPosition={true} closeOnClick={false}>
                                 <h3>{showPopup.title}</h3>
-                                <img src={showPopup.image} alt={showPopup.title}/>
+                                {showPopup.image ? <img src={showPopup.image} alt={showPopup.title}/> : null}
                                 <p>Rating: {showPopup.rating}</p>
                                 <p>{showPopup.description}</p>
-                                <p>{new Date(showPopup.visited_at).toLocaleDateString()}</p>
+                                <p>Visited on: {new Date(showPopup.visited_at).toLocaleDateString()}</p>
+                                <input className="btn btn-danger" type="button" value="Delete" onClick={(e)=> handleDelete(e)}/>
                             </Popup> : null}
                         </div>                    
                     )
@@ -229,7 +249,7 @@ export default function Home() {
                     <Marker latitude={addLocation.latitude} longitude={addLocation.longitude}>
                         <img id="entry-pin" src="/pin.png" alt="entry-pin"/>
                     </Marker>
-                    <Popup latitude={addLocation.latitude} longitude={addLocation.longitude}onClose={()=> {
+                    <Popup latitude={addLocation.latitude} longitude={addLocation.longitude} onClose={()=> {
                         setAddLocation(null)
                         setAddLocationError(false)
                     }} dynamicPosition={true} anchor="left" closeOnClick={false}>

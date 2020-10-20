@@ -26,4 +26,15 @@ router.post('/', async (req,res)=> {
     }
 })
 
+router.delete('/', async (req, res) => {
+    const { id } = req.body
+    try {
+        const result = await Log.deleteOne({ _id: id })
+        res.json({ deletedCount: result.deletedCount })
+    } catch (err) {
+        res.json({ error: "Failed to delete log"})
+    }
+   
+})
+
 module.exports = router
