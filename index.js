@@ -24,6 +24,8 @@ mongoose.connect(process.env.DB_CONNECT, () =>
 );
 
 // Routes middleware
+
+
 const authRoute = require("./routes/auth");
 app.use("/api/user", authRoute);
 
@@ -36,5 +38,12 @@ app.use("/api/log", logRoute)
 const uploadImgRoute = require("./routes/uploadImg");
 app.use("/api/upload", uploadImgRoute)
 
+if (process.env.NODE_ENV === "production") {
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, "client/build/index.html")))
+    })
+}
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Express app listening on port ${PORT}`));
+
