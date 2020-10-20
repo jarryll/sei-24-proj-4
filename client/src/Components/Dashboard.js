@@ -1,24 +1,40 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {PlacesContext} from "./PlacesContext"
+import {ViewportContext} from "./ViewportContext";
 
 export default function Dashboard() {
 
+    const linkStyle = {
+        textDecoration: "none",
+        color: "black"
+    }
+
     const [placesOfInterest, setPlaces] = useContext(PlacesContext)
-    console.log(placesOfInterest)
+    const [viewport, setViewport] = useContext(ViewportContext)
+
     const placesList = placesOfInterest.map((place, index) => {
         return (
 
             <div className="card" style={{width: "18rem"}} key={index}>
-                <h4>{place.title}</h4>
-                <img className="card-img-top dashboard-image" src={place.image ? place.image : "/image.svg"} alt={place.title}/>
-                <div className="card-body">
-                    <p className="card-text">
-                        <p>Rating: {place.rating}</p>
-                        <p>{place.description}</p>
-                        <p>Visited on: {new Date(place.visited_at).toLocaleDateString()}</p>
-                    </p>
-                </div>
+                <Link to="/" style={linkStyle} 
+                onClick={()=>setViewport({
+                    ...viewport,
+                    latitude: place.latitude,
+                    longitude: place.longitude
+                    })}>
+                    <h4>{place.title}</h4>
+
+                    <img className="card-img-top dashboard-image" src={place.image ? place.image : "images/image.svg"} alt={place.title}/>
+
+                    <div className="card-body">
+                        <p className="card-text">
+                            <p>Rating: {place.rating}</p>
+                            <p>{place.description}</p>
+                            <p>Visited on: {new Date(place.visited_at).toLocaleDateString()}</p>
+                        </p>
+                    </div>
+                </Link>   
             </div>
         )
     })

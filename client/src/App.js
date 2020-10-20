@@ -7,23 +7,25 @@ import Dashboard from "./Components/Dashboard";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import {PlacesProvider} from "./Components/PlacesContext"
 import "./App.css";
+import { ViewportProvider } from "./Components/ViewportContext";
 
 function App() {
   return (
-    <PlacesProvider>
+    <ViewportProvider>
+      <PlacesProvider>
        <div className="App">
-      <Router>
-        <Switch>
-          <ProtectedRoute exact path="/" component={Home} />
-          <ProtectedRoute path="/dashboard" component={Dashboard} />
-          <Route path="/login" component={SignIn} />
-          <Route path="/register" component={SignUp} />
-          <Route path="*" component={()=>"404 NOT FOUND"} />
-        </Switch>
-      </Router>
-    </div>
-    </PlacesProvider>
-   
+          <Router>
+            <Switch>
+              <ProtectedRoute exact path="/" component={Home} />
+              <ProtectedRoute path="/dashboard" component={Dashboard} />
+              <Route path="/login" component={SignIn} />
+              <Route path="/register" component={SignUp} />
+              <Route path="*" component={()=>"404 NOT FOUND"} />
+          </Switch>
+        </Router>
+      </div>
+      </PlacesProvider>
+    </ViewportProvider>
   );
 }
 
