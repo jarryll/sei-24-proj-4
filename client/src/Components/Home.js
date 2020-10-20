@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, useCallback} from 'react';
+import React, {useState, useEffect, useRef, useCallback, useContext } from 'react';
 import ReactMapGL, {Marker, Popup} from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
@@ -7,13 +7,15 @@ import AddLocationForm from "./AddLocationForm";
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Logout from './Logout';
 import Loader from './Loader';
+import {PlacesContext} from './PlacesContext';
 
 export default function Home() {
  
     const [showPopup, setShowPopup] = useState(null)
     const [addLocation, setAddLocation] = useState(null)
     const [addLocationError, setAddLocationError] = useState(false)
-    const [placesOfInterest, setPlaces] = useState([])
+    // const [placesOfInterest, setPlaces] = useState([])
+    const [placesOfInterest, setPlaces] = useContext(PlacesContext)
     const [imgPreview, setImgPreview] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const [viewport, setViewport] = useState({
@@ -43,8 +45,7 @@ export default function Home() {
   );
 
     useEffect(() => {
-        fetchLogs();
-        setIsLoading(false)
+        // fetchLogs();
         navigator.geolocation.getCurrentPosition(pos => {
           setViewport({
             ...viewport,
@@ -77,20 +78,21 @@ export default function Home() {
       
     // }
 
-    const fetchLogs = async () => {
-        setIsLoading(true)
-        const response = await fetch('/api/log/find', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                user_id: Cookies.get('auth')
-            })
-        })
-        const result = await response.json()
-        setPlaces(result)
-    }
+    // const fetchLogs = async () => {
+    //     setIsLoading(true)
+    //     const response = await fetch('/api/log/find', {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify({
+    //             user_id: Cookies.get('auth')
+    //         })
+    //     })
+    //     const result = await response.json()
+    //     setPlaces(result)
+    // }
+
 
     const showAddLocation = (e) => {
         const [ longitude, latitude ] = e.lngLat;

@@ -96,3 +96,27 @@ select {
   top: 50%;
   left: 50%;
 }
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.back-to-map {
+  position: relative;
+  top: 0.7rem;
+}
+
+.card {
+  margin: 1rem;
+  padding: 0.5rem;
+}
+
+.dashboard-image {
+  max-width: 18rem;
+}
+
+.places-list {
+  display: flex;
+}
