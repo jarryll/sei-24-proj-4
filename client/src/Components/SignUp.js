@@ -79,19 +79,19 @@ export default function SignUp() {
       password: null,
       passwordError: "Min 6 characters"
     }
-    if (fields.firstName.length === 0) {
+    if (!fields.firstName || fields.firstName.length === 0) {
       hasError = true;
       errors.firstName = true
     }
-    if (fields.lastName.length === 0) {
+    if (!fields.lastName || fields.lastName.length === 0) {
       hasError = true;
       errors.lastName = true
     }
-    if (fields.email.indexOf('@') === -1) {
+    if (!fields.email || fields.email.indexOf('@') === -1) {
       hasError = true;
       errors.email = true;
     }
-    if (fields.password.length < 6) {
+    if (!fields.password || fields.password.length < 6) {
       hasError = true;
       errors.password = true;
     }
