@@ -19,6 +19,51 @@ Try it out [here](https://travel-memo.herokuapp.com/).
 * Click on a place to be directed back to point on the map
 
 ## Screenshots
-<img src= "./screenshots/map.png" alt=map width="400px" /><img src= "./screenshots/dashboard.png" alt=dashboard width="400px" />
+<img src= "./screenshots/map.png" alt=map width="500px"/><img src= "./screenshots/dashboard.png" alt=dashboard width="500px" />
+
+## Installation instructions
+Fork this repo and run npm install in both the root and client directories. Create an account and/or login to access the map view
+
+## Core Technologies
+* MongoDB noSQL database with 2 models: users and logs
+* Express for RESTful routing
+* React UI
+* Node environment
+
+## Other tech
+### UI
+* Material UI
+* Bootstrap
+
+### Mapping
+* Mapbox
+* React-Map-GL
+* React-Map-GL-Geocoder
+
+### Authentication
+* Bcrypt
+* JsonWebToken
+* Js-Cookie
+
+### Media Management
+* Cloudinary
+
+### ORM
+* Mongoose
+
+## Learnings
+* Using a NoSQL database
+* Manipulating geolocation data and implementing an interactive map
+* Working with file uploads
+* Custom front-end form validation
+* Exposure to more advanced React concepts (e.g. more complex state management,context API, useCallback hooks, etc.)
+* JWT authentication
+
+## Challenges
+* Lack of free travel-related APIs leading to changing of project idea
+* Passing of props between components without a common ancestor - learned to create a context provider.
+* Git issues where changes were not being tracked, had to re-initialise git
+
+
 
 
