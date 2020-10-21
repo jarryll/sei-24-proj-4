@@ -15,8 +15,8 @@ export default function Dashboard() {
 
     const placesList = placesOfInterest.map((place, index) => {
         return (
-
-            <div className="card" style={{width: "18rem"}} key={index}>
+            <div className="col-sm-4">
+                <div className="card" style={{width: "18rem"}} key={index}>
                 <Link to="/" style={linkStyle} 
                 onClick={()=>setViewport({
                     ...viewport,
@@ -36,6 +36,8 @@ export default function Dashboard() {
                     </div>
                 </Link>   
             </div>
+            </div>
+            
         )
     })
     return (
@@ -49,7 +51,7 @@ export default function Dashboard() {
 
             <h2>You have visited {placesOfInterest.length} places</h2>
 
-            <div className="places-list">
+            <div className="places-list row">
                 {placesList}
             </div>
         </div>
