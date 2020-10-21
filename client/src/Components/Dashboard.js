@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {PlacesContext} from "./PlacesContext"
 import {ViewportContext} from "./ViewportContext";
+import Nav from "./Nav";
 
 export default function Dashboard() {
 
@@ -15,8 +16,8 @@ export default function Dashboard() {
 
     const placesList = placesOfInterest.map((place, index) => {
         return (
-            <div className="col-sm-4">
-                <div className="card" style={{width: "18rem"}} key={index}>
+            <div className="col-sm-4" key={index}>
+                <div className="card" style={{width: "18rem"}} >
                 <Link to="/" style={linkStyle} 
                 onClick={()=>setViewport({
                     ...viewport,
@@ -28,11 +29,11 @@ export default function Dashboard() {
                     <img className="card-img-top dashboard-image" src={place.image ? place.image : "images/image.svg"} alt={place.title}/>
 
                     <div className="card-body">
-                        <p className="card-text">
+                        <div className="card-text">
                             <p>Rating: {place.rating}</p>
                             <p>{place.description}</p>
                             <p>Visited on: {new Date(place.visited_at).toLocaleDateString()}</p>
-                        </p>
+                        </div>
                     </div>
                 </Link>   
             </div>
@@ -41,20 +42,19 @@ export default function Dashboard() {
         )
     })
     return (
-        <div className="container">
-            <div className="dashboard-header">
-                <h1>Your Dashboard</h1>
-                <h4 className="back-to-map">
-                    <Link to="/">Back to Map</Link>
-                </h4>
-            </div>
+        <div>
+            <Nav />
 
-            <h2>You have visited {placesOfInterest.length} places</h2>
+            <div className="container">
+
+            <h2 className="dashboard-header">You have visited {placesOfInterest.length} places</h2>
 
             <div className="places-list row">
                 {placesList}
             </div>
         </div>
+        </div>
+       
         
     )
 }

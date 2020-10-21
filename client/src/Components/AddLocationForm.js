@@ -31,10 +31,7 @@ export default function AddLocationForm(props) {
                             <label htmlFor="description">Notes</label>
                             <textarea id="description" rows="4" cols="20" onChange={(e)=> handleLocationOnChange(e)} className="form-control" />
                         </div>
-                        {/* <div className="form-group">
-                            <label htmlFor="image">Photo</label>
-                            <input type="text" id="image" onChange={(e)=> handleLocationOnChange(e)} className="form-control"/>
-                        </div> */}
+
                         <div className="form-group">
                             <label htmlFor="image">Photo</label>
                             <input type="file" id="image" onChange={(e)=> handleLocationOnChange(e)} />

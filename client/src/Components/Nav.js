@@ -1,9 +1,10 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, Link, useLocation } from 'react-router-dom';
 
 export default function Nav() {
-    const history=useHistory();
+    const location = useLocation();
+    const history = useHistory();
     const logout = () =>{
         Cookies.remove('auth')
         history.push('/login')
@@ -16,7 +17,7 @@ export default function Nav() {
             </Link>
             <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-            <Link to="/dashboard" className="nav-link">My Dashboard</Link>
+            { location.pathname === "/dashboard" ? <Link to="/" className="nav-link">Map</Link> : <Link to="/dashboard" className="nav-link">My Dashboard</Link> }
             </li>
             </ul>
             <button onClick={logout} className="btn btn-outline-secondary float-right" id="logout-btn" type="button">Log Out</button>

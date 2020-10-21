@@ -118,7 +118,7 @@ export default function SignIn() {
               onChange = {handleFieldChange}
               autoComplete="current-password"
             />
-             <h4 style={errors ?  null : displayNone }>Email and/or password provided was incorrect.</h4>
+             <p className="sign-in-error" style={errors ?  null : displayNone }>Email and/or password provided was incorrect.</p>
             <Button
               type="submit"
               fullWidth

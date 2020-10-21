@@ -38,7 +38,6 @@ export default function Home() {
     []
   );
 
-
   const fetchLogs = async () => {
         const response = await fetch('/api/log/find', {
             method: "POST",
@@ -105,13 +104,13 @@ export default function Home() {
         const result = await response.json()
         console.log(result)
         setAddLocation(null)
-        setIsLoading(false)
         setAddLocationError(false)
         setImgPreview(null)
         setPlaces([...placesOfInterest, result])
         setViewport({...viewport, 
             latitude: result.latitude, 
             longitude: result.longitude})
+        setIsLoading(false)
     }
     const uploadImg = async (base64Img) => {
         try {
@@ -136,9 +135,9 @@ export default function Home() {
 
     const handleAddLocation = (e) => {
         e.preventDefault();
-        setIsLoading(true)
         const err = validate();
         if (!err) {
+            setIsLoading(true)
             if (!imgPreview) {
                 addEntry({...addLocation, user_id: Cookies.get('auth')})
             } else {
@@ -162,8 +161,8 @@ export default function Home() {
                 body: JSON.stringify({ id: showPopup._id })
             })
             const result = await response.json()
-            setIsLoading(false)
             setPlaces(placesOfInterest.filter(place => place._id !== showPopup._id))
+            setIsLoading(false)
             setShowPopup(null)
         } catch (err) {
             console.error(err)
@@ -173,6 +172,7 @@ export default function Home() {
     return (
         <div>
             <Nav />
+
             <ReactMapGL
             {...viewport}
             ref={mapRef}
@@ -184,14 +184,14 @@ export default function Home() {
             doubleClickZoom={false}
             >
 
-                {isLoading ? <Loader /> : null }
-
                 <Geocoder
                 mapRef={mapRef}
                 onViewportChange={handleGeocoderViewportChange}
                 mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-                position="bottom-right"
+                position="top-right"
                 />
+
+                {isLoading ? <Loader /> : null }
 
                 {placesOfInterest.map(place => {
                     return (

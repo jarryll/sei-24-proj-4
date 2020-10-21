@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useFormFields } from "../libs/hooksLib";
+import {useHistory} from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+  const history = useHistory()
 
   const displayNone = {
     display: "none"
@@ -112,12 +114,12 @@ export default function SignUp() {
             emailAlreadyExists: true,
           })
         }
+        history.push('/')
       } catch (err) {
         console.log(err.stack);
       }
     }   
   };
-
 
   return (
     <Container component="main" maxWidth="xs">
