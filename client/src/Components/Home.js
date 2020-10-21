@@ -1,29 +1,25 @@
-import React, {useState, useEffect, useRef, useCallback} from 'react';
+import React, { useState, useRef, useCallback, useContext, useEffect } from 'react';
 import ReactMapGL, {Marker, Popup} from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import Cookies from 'js-cookie';
 import AddLocationForm from "./AddLocationForm";
 import 'mapbox-gl/dist/mapbox-gl.css';
-import Logout from './Logout';
+import Nav from './Nav';
 import Loader from './Loader';
+import {PlacesContext} from './PlacesContext';
+import {ViewportContext} from './ViewportContext';
 
 export default function Home() {
  
     const [showPopup, setShowPopup] = useState(null)
     const [addLocation, setAddLocation] = useState(null)
     const [addLocationError, setAddLocationError] = useState(false)
-    const [placesOfInterest, setPlaces] = useState([])
+    const [placesOfInterest, setPlaces] = useContext(PlacesContext)
     const [imgPreview, setImgPreview] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
-    const [viewport, setViewport] = useState({
-        width: "100vw",
-        height: "100vh",
-        latitude: 1.3521,
-        longitude: 103.8198,
-        zoom: 12
+    const [viewport, setViewport] = useContext(ViewportContext)
 
-    })
 
     const mapRef = useRef();
     const handleViewportChange = useCallback(
@@ -42,43 +38,8 @@ export default function Home() {
     []
   );
 
-    useEffect(() => {
-        fetchLogs();
-        setIsLoading(false)
-        navigator.geolocation.getCurrentPosition(pos => {
-          setViewport({
-            ...viewport,
-            latitude: pos.coords.latitude,
-            longitude: pos.coords.longitude
-          });
-        });
-      }, []);
 
-
-    // const fetchPoints = async () => {
-    //     console.log("this triggered")
-    //     try {
-    //         const response = await fetch('/info/placesOfInterest', {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json"
-    //             },
-    //             body: JSON.stringify({
-    //                 latitude: viewport.latitude,
-    //                 longitude: viewport.longitude
-    //             })
-    //         })
-    //         console.log("request sent")
-    //         const points = await response.json();
-    //         setPlaces(points.data) 
-    //     } catch (err) {
-    //         console.log(err.stack)
-    //     }
-      
-    // }
-
-    const fetchLogs = async () => {
-        setIsLoading(true)
+  const fetchLogs = async () => {
         const response = await fetch('/api/log/find', {
             method: "POST",
             headers: {
@@ -90,7 +51,12 @@ export default function Home() {
         })
         const result = await response.json()
         setPlaces(result)
-    }
+}
+    
+
+    useEffect(()=> {
+        fetchLogs();
+    }, [])
 
     const showAddLocation = (e) => {
         const [ longitude, latitude ] = e.lngLat;
@@ -143,7 +109,7 @@ export default function Home() {
         setAddLocationError(false)
         setImgPreview(null)
         setPlaces([...placesOfInterest, result])
-        setViewport({... viewport, 
+        setViewport({...viewport, 
             latitude: result.latitude, 
             longitude: result.longitude})
     }
@@ -206,11 +172,10 @@ export default function Home() {
 
     return (
         <div>
-      
+            <Nav />
             <ReactMapGL
             {...viewport}
             ref={mapRef}
-            // onViewportChange={nextViewport => setViewport(nextViewport)}
             mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_TOKEN}
             mapStyle="mapbox://styles/jarryl/ckggo2kqv3e7z1aok773nnr9i"
             onViewportChange={handleViewportChange}
@@ -218,20 +183,21 @@ export default function Home() {
             getCursor={(e) => "crosshair"}
             doubleClickZoom={false}
             >
-                <Logout />
+
                 {isLoading ? <Loader /> : null }
+
                 <Geocoder
                 mapRef={mapRef}
                 onViewportChange={handleGeocoderViewportChange}
                 mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-                position="top-left"
+                position="bottom-right"
                 />
 
                 {placesOfInterest.map(place => {
                     return (
                         <div key={place._id}>
                             <Marker latitude={place.latitude} longitude={place.longitude}>
-                            <img id="map-pin" src="/map-pin.png" alt="map-pin" onClick={()=> setShowPopup(place)}/>
+                            <img id="map-pin" src="/images/map-pin.png" alt="map-pin" onClick={()=> setShowPopup(place)}/>
                             </Marker>
                             {showPopup ? <Popup className="Popup" onClose={()=>setShowPopup(null)} latitude={showPopup.latitude} longitude={showPopup.longitude} anchor="left" dynamicPosition={true} closeOnClick={false}>
                                 <h3>{showPopup.title}</h3>
@@ -247,7 +213,7 @@ export default function Home() {
 
                 {addLocation ? <>
                     <Marker latitude={addLocation.latitude} longitude={addLocation.longitude}>
-                        <img id="entry-pin" src="/pin.png" alt="entry-pin"/>
+                        <img id="entry-pin" src="/images/pin.png" alt="entry-pin"/>
                     </Marker>
                     <Popup latitude={addLocation.latitude} longitude={addLocation.longitude} onClose={()=> {
                         setAddLocation(null)

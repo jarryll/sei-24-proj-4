@@ -29,9 +29,6 @@ mongoose.connect(process.env.DB_CONNECT, () =>
 const authRoute = require("./routes/auth");
 app.use("/api/user", authRoute);
 
-const amadeusRoute = require('./routes/amadeus');
-app.use("/info", amadeusRoute);
-
 const logRoute = require("./routes/log");
 app.use("/api/log", logRoute)
 
