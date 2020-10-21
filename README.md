@@ -19,6 +19,6 @@ Try it out [here](https://travel-memo.herokuapp.com/).
 * Click on a place to be directed back to point on the map
 
 ## Screenshots
-<img src= "screenshots/map" alt=map />
+<img src= "./screenshots/map.png" alt=map width="400px" /><img src= "./screenshots/dashboard.png" alt=dashboard width="400px" />
 
 
