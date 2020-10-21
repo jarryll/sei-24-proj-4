@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {PlacesContext} from "./PlacesContext"
 import {ViewportContext} from "./ViewportContext";
 import Nav from "./Nav";
+import Cookies from 'js-cookie';
 
 export default function Dashboard() {
 
@@ -13,6 +14,24 @@ export default function Dashboard() {
 
     const [placesOfInterest, setPlaces] = useContext(PlacesContext)
     const [viewport, setViewport] = useContext(ViewportContext)
+
+    const fetchLogs = async () => {
+        const response = await fetch('/api/log/find', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                user_id: Cookies.get('auth')
+            })
+        })
+        const result = await response.json()
+        setPlaces(result)
+}
+
+    useEffect(()=> {
+        fetchLogs();
+    }, [])
 
     const placesList = placesOfInterest.map((place, index) => {
         return (
