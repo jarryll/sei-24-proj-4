@@ -2,12 +2,13 @@
 
 #### Approach and Process
 
-* What in my process and approach to this project would I do differently next time?
+1. What in my process and approach to this project would I do differently next time?
 
 When working with maps, it would be good for me to consider how to implement caching of resources to reduce load times when navigating the app. 
 Also, instead of waiting till the end, I should have deployed a basic version of my app to Heroku so I can catch potential issues and address them earlier.
 
-* What in my process and approach to this project went well that I would repeat next time?
+2. What in my process and approach to this project went well that I would repeat next time?
+
 Organising my app into the relevant folders helped to keep the structure neat and clean, which made it easier for me to debug and build on the existing functionalities
 
 
@@ -15,7 +16,7 @@ Organising my app into the relevant folders helped to keep the structure neat an
 
 #### Code and Code Design
 
-* What in my code and program design in the project would I do differently next time?
+1. What in my code and program design in the project would I do differently next time?
 
 Map out the relationships between the various React components so as to better decide on the best design patterns to utilise. 
 For this project, I ran into issues with passing props between components without a common ancestor and had to fall back on React's context API to solve the problem, which may not have been the most optimal tool to use.
@@ -41,7 +42,7 @@ function App() {
   );
 }
 ```
-* What in my code and program design in the project went well? Is there anything I would do the same next time?
+2. What in my code and program design in the project went well? Is there anything I would do the same next time?
 
 * Learning to use the spread operator and <code>event.target.id</code> to dynamically handle changes in form field states, instead of hard coding:
 
