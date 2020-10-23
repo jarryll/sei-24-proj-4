@@ -183,7 +183,7 @@ export default function Home() {
             doubleClickZoom={false}
             >
 
-<Nav />
+            <Nav />
 
                 <Geocoder
                 mapRef={mapRef}
