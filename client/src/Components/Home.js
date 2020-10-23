@@ -171,7 +171,6 @@ export default function Home() {
 
     return (
         <div>
-            <Nav />
 
             <ReactMapGL
             {...viewport}
@@ -184,11 +183,13 @@ export default function Home() {
             doubleClickZoom={false}
             >
 
+<Nav />
+
                 <Geocoder
                 mapRef={mapRef}
                 onViewportChange={handleGeocoderViewportChange}
                 mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-                position="top-right"
+                position="bottom-right"
                 />
 
                 {isLoading ? <Loader /> : null }
